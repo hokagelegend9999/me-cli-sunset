@@ -2,6 +2,9 @@
 
 - pip3 install python-telegram-bot --break-system-packages
 
+
+### BUAT ERVICE AGAR BERJALAN DI LATAR BELAKANG
+
 nano /etc/systemd/system/bot-xl.service
 
 [Unit]
@@ -40,3 +43,4 @@ WantedBy=multi-user.target
 --- systemctl start bot-xl
 --- systemctl status bot-xl
 --- journalctl -u bot-xl -f
+--- systemctl restart bot-xl
