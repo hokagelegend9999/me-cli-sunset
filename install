@@ -1,3 +1,42 @@
 ## BOT DOR PAKET UBUNTU 24
 
 - pip3 install python-telegram-bot --break-system-packages
+
+nano /etc/systemd/system/bot-xl.service
+
+[Unit]
+Description=Bot Telegram XL Sunset
+After=network.target
+
+[Service]
+# User yang menjalankan (root sesuai login Anda)
+User=root
+Group=root
+
+# Folder tempat script berada
+WorkingDirectory=/root/me-cli-sunset-main/
+
+# Perintah menjalankan bot
+# Pastikan path python3 benar. Jika pakai venv, ganti path python-nya.
+ExecStart=/usr/bin/python3 /root/me-cli-sunset-main/bot_telegram.py
+
+# Agar otomatis restart jika crash atau error
+Restart=always
+
+# Jeda waktu restart (misal 10 detik setelah mati/reboot baru nyala)
+RestartSec=10
+
+# Output log standar
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=bot-xl
+
+[Install]
+WantedBy=multi-user.target
+
+
+--- systemctl daemon-reload
+--- systemctl enable bot-xl
+--- systemctl start bot-xl
+--- systemctl status bot-xl
+--- journalctl -u bot-xl -f
